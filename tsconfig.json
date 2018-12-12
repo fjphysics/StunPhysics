@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        //"declaration": true,
+        "noImplicitAny": false,
+        "outFile": "./build/StunEngine.js",
+        "declaration":true
+        //"module": "system" 
+    },
+    "exclude": [
+        "node_modules",
+        "test",
+        "typings"
+    ]
+}
