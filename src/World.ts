@@ -3,20 +3,20 @@ import { Vec2 } from "./math/Vec2"
 
 export class World {
 
-    Gravity: Vec2;
-    Bodies: Array<Body>;
+    gravity: Vec2;
+    bodies: Array<Body>;
 
     constructor() {
-        this.Bodies = new Array<Body>();
-        this.Gravity = new Vec2(0, -50);
+        this.bodies = new Array<Body>();
+        this.gravity = new Vec2(0, -50);
     }
 
-    AddBody(body: Body) {
-        this.Bodies.push(body);
+    addBody(body: Body) {
+        this.bodies.push(body);
     }
 
-    Step(dt: number) {
-        for (let body of this.Bodies) {    
+    step(dt: number) {
+        for (let body of this.bodies) {    
             body.Integrate(dt);
         }
     }
