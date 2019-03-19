@@ -45,7 +45,7 @@ function bundle() {
         .bundle()
         .pipe(source('app.js'))        
         .pipe(buffer())
-        .pipe(uglify())                    //压缩
+        //.pipe(uglify())                    //压缩
         //.pipe(sourcemaps.init({loadMaps: true}))
         //.pipe(gulp.dest("build"))
         //.pipe(rename({suffix:'.min'}))     //重命名        

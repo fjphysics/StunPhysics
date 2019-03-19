@@ -1,5 +1,5 @@
 ﻿
-import * as sp from "../src/StunPhysics"
+import * as sp from "../../src/StunPhysics"
 
 
 export class test {
@@ -11,6 +11,9 @@ export class test {
     btnStart: HTMLButtonElement;
     btnExample4: HTMLButtonElement;
     pMessage: HTMLParagraphElement;
+    rect:HTMLElement;
+
+    rectX:number=0;
 
     AccelerationLength: number;
     k: number;
@@ -21,6 +24,7 @@ export class test {
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
         this.btnExample4 = <HTMLButtonElement>document.getElementById('btnExample4');
         this.pMessage = <HTMLParagraphElement>document.getElementById('messageExample4');
+        this.rect=document.getElementById("rect");
 
         this.isPause = true;
         this.k = 50;
@@ -32,24 +36,24 @@ export class test {
             this.isPause = !this.isPause;
             if (this.isPause) {
                 this.btnStart.innerHTML = "开始";
-                this.btnExample4.disabled = true;
+                //this.btnExample4.disabled = true;
             }
             else {
                 this.btnStart.innerHTML = "暂停";
-                this.btnExample4.disabled = false;
+                //this.btnExample4.disabled = false;
             }
         }
 
-        this.btnExample4.onclick = () => {
+        /*this.btnExample4.onclick = () => {
             this.totalTime = 0;
             this.circleBody.position.x = 0;
             this.circleBody.velocity.x = 0;
-        }
+        }*/
 
         this.world = new sp.World();
         this.circleBody = new sp.Body(this.world);
         this.ResetBody();
-        this.world.addBody(this.circleBody);
+        this.world.addBody(this.circleBody);        
 
         this.Update();
     };
@@ -69,7 +73,9 @@ export class test {
 
         if (this.elapsedTime > 0) {
 
-            const ctx: CanvasRenderingContext2D = this.ctx;
+            this.rectX+=this.elapsedTime*100;
+            this.rect.setAttribute("x",this.rectX.toString());
+            /*const ctx: CanvasRenderingContext2D = this.ctx;
 
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
             ctx.save();
@@ -99,10 +105,10 @@ export class test {
                 }
                 this.world.step(this.elapsedTime);
 
-            }
+            }*/
 
-            this.debugDraw.DrawSolidCircle(body.position.x, body.position.y, 20);
-            ctx.restore();
+            //this.debugDraw.DrawSolidCircle(body.position.x, body.position.y, 20);
+            //ctx.restore();
         };
     };
 

@@ -2,7 +2,7 @@
     "compilerOptions": {
         //"declaration": true,
         "noImplicitAny": false,
-        "outFile": "./build/StunEngine.js",
+        "outFile": "./dist/StunEngine.js",
         "declaration":true
         //"module": "system" 
     },
