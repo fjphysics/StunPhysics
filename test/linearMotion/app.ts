@@ -9,10 +9,10 @@ export class test {
 
     isPause: boolean;
     btnStart: HTMLButtonElement;
-    btnExample4: HTMLButtonElement;
-    pMessage: HTMLParagraphElement;
-    rect:HTMLElement;
+    ranV:HTMLInputElement;
+    ranA:HTMLInputElement;
 
+    rect:HTMLElement;
     rectX:number=0;
 
     AccelerationLength: number;
@@ -22,8 +22,9 @@ export class test {
         
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
-        this.btnExample4 = <HTMLButtonElement>document.getElementById('btnExample4');
-        this.pMessage = <HTMLParagraphElement>document.getElementById('messageExample4');
+        this.ranV=<HTMLInputElement>document.getElementById("raV");
+        this.ranA=<HTMLInputElement>document.getElementById("raA");
+
         this.rect=document.getElementById("rect");
 
         this.isPause = true;
@@ -42,6 +43,16 @@ export class test {
                 this.btnStart.innerHTML = "暂停";
                 //this.btnExample4.disabled = false;
             }
+        }
+
+        this.ranV.onchange=()=>{
+            alert(this.ranV.value);
+
+        }
+
+        this.ranA.onchange=()=>{
+            alert(this.ranA.value);
+            
         }
 
         /*this.btnExample4.onclick = () => {
