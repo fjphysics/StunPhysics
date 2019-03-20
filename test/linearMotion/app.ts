@@ -7,25 +7,25 @@ export class test {
     world: sp.World;
     circleBody: sp.Body;
 
-    isPause: boolean;
+    isPause: boolean = false;
     btnStart: HTMLButtonElement;
-    ranV:HTMLInputElement;
-    ranA:HTMLInputElement;
+    ranV: HTMLInputElement;
+    ranA: HTMLInputElement;
 
-    rect:HTMLElement;
-    rectX:number=0;
+    rect: HTMLElement;
+    rectX: number = 0;
 
     AccelerationLength: number;
     k: number;
 
     public constructor() {
-        
+
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
-        this.ranV=<HTMLInputElement>document.getElementById("raV");
-        this.ranA=<HTMLInputElement>document.getElementById("raA");
+        this.ranV = <HTMLInputElement>document.getElementById("raV");
+        this.ranA = <HTMLInputElement>document.getElementById("raA");
 
-        this.rect=document.getElementById("rect");
+        this.rect = document.getElementById("rect");
 
         this.isPause = true;
         this.k = 50;
@@ -37,22 +37,20 @@ export class test {
             this.isPause = !this.isPause;
             if (this.isPause) {
                 this.btnStart.innerHTML = "开始";
-                //this.btnExample4.disabled = true;
             }
             else {
                 this.btnStart.innerHTML = "暂停";
-                //this.btnExample4.disabled = false;
             }
         }
 
-        this.ranV.onchange=()=>{
+        this.ranV.onclick = () => {
             alert(this.ranV.value);
 
         }
 
-        this.ranA.onchange=()=>{
+        this.ranA.onchange = () => {
             alert(this.ranA.value);
-            
+
         }
 
         /*this.btnExample4.onclick = () => {
@@ -64,7 +62,7 @@ export class test {
         this.world = new sp.World();
         this.circleBody = new sp.Body(this.world);
         this.ResetBody();
-        this.world.addBody(this.circleBody);        
+        this.world.addBody(this.circleBody);
 
         this.Update();
     };
@@ -84,8 +82,15 @@ export class test {
 
         if (this.elapsedTime > 0) {
 
-            this.rectX+=this.elapsedTime*100;
-            this.rect.setAttribute("x",this.rectX.toString());
+            if (this.isPause)
+                return;
+
+            this.world.step(this.elapsedTime);
+
+            if (parseFloat(this.rect.getAttribute("x")) < 800) {
+                this.rectX += this.elapsedTime * 100;
+                this.rect.setAttribute("x", this.rectX.toString());
+            }
             /*const ctx: CanvasRenderingContext2D = this.ctx;
 
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);

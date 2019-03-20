@@ -63,14 +63,14 @@ gulp.task("default" ,function () {
   return browserify({
         basedir: '.',
         debug: true,
-        entries: ['test/app.ts'],
+        entries: ['test/linearMotion/app.ts'],
         cache: {},
         packageCache: {}
     })
     .plugin(tsify)
     .bundle()
     .pipe(source('app.js'))
-    .pipe(gulp.dest("test"));
+    .pipe(gulp.dest("test/linearMotion"));
 });
 
 
