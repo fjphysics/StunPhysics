@@ -16,10 +16,12 @@
         <button id="btnReset">重置</button>
         <div style="float:left">
             <span>初速度:</span>
-        <input type="range" id="raV" />
+        <input type="range" id="raV" max="50"/><span id="spV">25m/s</span>
         </div>
         <div><span>加速度:</span>
-        <input type="range" id="raA" /></div>
+        <input type="range" id="raA" max="50"/><span id="spA">25m/s<sup>2</sup></span></div>
+        <div>用时
+            <span id="spTime"></span>s</div>
     </div>  
 </body>
 </html>

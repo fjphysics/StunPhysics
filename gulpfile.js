@@ -35,7 +35,7 @@ gulp.task("stun", function () {
 var watchedBrowserify = watchify(browserify({
     basedir: '.',
     debug: true,
-    entries: ['test/app.ts'],
+    entries: ['test/linearMotion/app.ts'],
     cache: {},
     packageCache: {}
 }).plugin(tsify));
@@ -50,7 +50,7 @@ function bundle() {
         //.pipe(gulp.dest("build"))
         //.pipe(rename({suffix:'.min'}))     //重命名        
         //.pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('test'))            //输出 ;
+        .pipe(gulp.dest('test/linearMotion'))            //输出 ;
 
 }
 

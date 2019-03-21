@@ -22,7 +22,7 @@ export class Body {
     Integrate(dt: number) {
 
         // 在边界处反弹
-        if (this.position.x < -280) {
+        /*if (this.position.x < -280) {
             this.position.x = -280;
             this.velocity.x = -this.velocity.x;
         }
@@ -37,7 +37,7 @@ export class Body {
         else if (this.position.y > 180) {
             this.position.y = 180;
             this.velocity.y = -this.velocity.y;
-        }
+        }*/
 
         // 计算当前速度
         // 速度的该变量即加速度与时间的乘积
