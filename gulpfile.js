@@ -7,7 +7,7 @@ var tsify = require("tsify");
 var watchify = require("watchify");
 var gutil = require("gulp-util");
 var uglify = require('gulp-uglify');   //js压缩
-var rename = require('gulp-rename');   //文件重命名
+//var rename = require('gulp-rename');   //文件重命名
 var buffer = require('vinyl-buffer')
 /*var paths = {
     pages: ['src/*.html']

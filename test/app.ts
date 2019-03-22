@@ -1,5 +1,6 @@
 ﻿
 import * as sp from "../src/StunPhysics"
+import { rejects } from "assert";
 
 
 export class test {
@@ -10,6 +11,7 @@ export class test {
     isPause: boolean;
     btnStart: HTMLButtonElement;
     btnExample4: HTMLButtonElement;
+    rect:HTMLElement;
     pMessage: HTMLParagraphElement;
 
     AccelerationLength: number;
@@ -19,6 +21,7 @@ export class test {
         
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
+        this.rect=<HTMLElement>document.getElementById('rect');
         this.btnExample4 = <HTMLButtonElement>document.getElementById('btnExample4');
         this.pMessage = <HTMLParagraphElement>document.getElementById('messageExample4');
 
@@ -69,19 +72,10 @@ export class test {
 
         if (this.elapsedTime > 0) {
 
-            const ctx: CanvasRenderingContext2D = this.ctx;
-
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            ctx.save();
-
-            // 0,0 at center of canvas, x right, y up
-            ctx.translate(0.5 * ctx.canvas.width, 0.5 * ctx.canvas.height);
-            ctx.scale(1, -1);
-
             let body: sp.Body = this.circleBody;
             if (!this.isPause) {
                 //console.log('type=' + this.motionType + ',a=' + this.AccelerationLength + ',k=' + this.k);
-                if (this.motionType == 0) {
+                /*if (this.motionType == 0) {
                     body.Acceleration = this.world.Gravity;
                 }
                 else if (this.motionType == 1) {
@@ -90,19 +84,17 @@ export class test {
                 else if (this.motionType == 2) {
                     body.Acceleration = body.position.Neg().MulS(this.k);// 简谐振动
                 }
-                else if (this.motionType == 3) {
+                /*else if (this.motionType == 3) {
                     body.Acceleration.x = 5 - 0.9 * body.velocity.x;
                     this.totalTime += this.elapsedTime;
                     if (body.position.x <= 1.167) {
                         this.pMessage.innerText = "时间：" + this.totalTime + "s，位移：" + body.position.x + "m，速度：" + body.velocity.x+"m/s";
                     }
-                }
+                }*/
                 this.world.step(this.elapsedTime);
+                this.rect.setAttribute("x","30");
 
             }
-
-            this.debugDraw.DrawSolidCircle(body.position.x, body.position.y, 20);
-            ctx.restore();
         };
     };
 
