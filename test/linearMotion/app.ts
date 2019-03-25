@@ -9,6 +9,7 @@ export class test {
 
     isPause: boolean = false;
     btnStart: HTMLButtonElement;
+    btnReset: HTMLButtonElement;
     ranV: HTMLInputElement;
     spV: HTMLSpanElement;
     ranA: HTMLInputElement;
@@ -26,6 +27,7 @@ export class test {
 
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
+        this.btnReset = <HTMLButtonElement>document.getElementById('btnReset');
         this.ranV = <HTMLInputElement>document.getElementById("raV");
         this.ranA = <HTMLInputElement>document.getElementById("raA");
         this.spV = <HTMLSpanElement>document.getElementById("spV");
@@ -52,15 +54,19 @@ export class test {
             }
         }
 
-        this.ranV.onchange = () => {
+        this.btnReset.onclick = () => {
+            this.resetBody();
+        }
+
+        this.ranV.oninput = () => {
             this.spV.innerHTML = this.ranV.value + "m/s";
-
         }
 
-        this.ranA.onchange = () => {
+        this.ranA.oninput = () => {
             this.spA.innerHTML = this.ranA.value + "m/s<sup>2</sup>";
-
         }
+
+
 
         /*this.btnExample4.onclick = () => {
             this.totalTime = 0;
@@ -70,7 +76,7 @@ export class test {
 
         this.world = new sp.World();
         this.circleBody = new sp.Body(this.world);
-        this.ResetBody();
+        this.resetBody();
         this.world.addBody(this.circleBody);
 
         this.Update();
@@ -95,19 +101,16 @@ export class test {
                 return;
 
             this.time += this.elapsedTime;
-            this.spTime.innerHTML=(this.time).toString();
-
+            this.spTime.innerHTML = (this.time).toFixed(2).toString() + "s";
 
             this.world.step(this.elapsedTime);
 
             if (parseFloat(this.rect.getAttribute("x")) < 800) {
                 this.rectX += this.elapsedTime * 100;
                 this.rect.setAttribute("x", this.circleBody.position.x.toString());
-
-                
             }
-            else{
-                this.isPause=true;
+            else {
+                this.isPause = true;
             }
             /*const ctx: CanvasRenderingContext2D = this.ctx;
 
@@ -146,10 +149,15 @@ export class test {
         };
     };
 
-    ResetBody(): void {
+    resetBody(): void {
         this.circleBody.position.SetZero();
         this.circleBody.velocity.Set(this.v0, 0);
         this.circleBody.Acceleration.Set(this.a, 0);
+        this.rect.setAttribute("x", "0");
+        this.btnStart.innerHTML = "开始";
+        this.isPause = true;
+        this.spTime.innerHTML = "0.00s";
+        this.time = 0;
     }
 }
 
