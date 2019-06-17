@@ -1,10 +1,7 @@
 {
-    "compilerOptions": {
-        //"declaration": true,
-        "noImplicitAny": false,
-        "outFile": "./dist/StunEngine.js",
-        "declaration":true
-        //"module": "system" 
+    "compilerOptions": {        
+        "noImplicitAny": true,
+        "target": "es5"
     },
     "exclude": [
         "node_modules",
