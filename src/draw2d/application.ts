@@ -26,7 +26,6 @@ export class CanvasInputEvent {
 
 export type TimerCallback = ( id : number , data : any ) => void ;
 
-
 class Timer {
     public id : number = -1 ;  
     public enabled: boolean = false ;  
@@ -361,4 +360,3 @@ export class WebGLApplication extends Application {
         }
     }
 }
-
