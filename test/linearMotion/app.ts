@@ -25,7 +25,6 @@ export class test {
 
     public constructor() {
 
-
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
         this.btnReset = <HTMLButtonElement>document.getElementById('btnReset');
         this.ranV = <HTMLInputElement>document.getElementById("raV");
