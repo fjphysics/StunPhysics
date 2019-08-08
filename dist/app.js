@@ -91,9 +91,34 @@
   !*** ./examples/Electromagnetic/app.ts ***!
   \*****************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("throw new Error(\"Module build failed (from ./node_modules/ts-loader/index.js):\\nError: ENOENT: no such file or directory, open 'E:\\\\Users\\\\fanjing\\\\Desktop\\\\编程\\\\StunPhysics\\\\examples\\\\Electromagnetic\\\\app.ts'\");\n\n//# sourceURL=webpack:///./examples/Electromagnetic/app.ts?");
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nconst World_1 = __webpack_require__(/*! ../../src/World */ \"./src/World.ts\");\r\nconst Body_1 = __webpack_require__(/*! ../../src/objects/Body */ \"./src/objects/Body.ts\");\r\nclass test {\r\n    constructor() {\r\n        this.isStart = false;\r\n        this.totalTime = 0; // 用于计算变加速运动的时间\r\n        this.btnStart = document.getElementById('btnStart');\r\n        this.spV = document.getElementById(\"spV\");\r\n        this.spTime = document.getElementById(\"spTime\");\r\n    }\r\n    start() {\r\n        this.btnStart.onclick = () => {\r\n            this.isStart = true;\r\n            this.btnStart.disabled = true;\r\n        };\r\n        this.world = new World_1.World();\r\n        this.circleBody = new Body_1.Body();\r\n        this.world.addBody(this.circleBody);\r\n        this.Update();\r\n    }\r\n    ;\r\n    Update() {\r\n        requestAnimationFrame(() => this.Update());\r\n        const time = performance.now();\r\n        this.elapsedTime = this.previousTime ? (time - this.previousTime) / 1000 : 0;\r\n        this.previousTime = time;\r\n        if (this.circleBody.x >= 1.15) {\r\n            this.isStart = false;\r\n            this.btnStart.disabled = false;\r\n            this.circleBody.x = 0;\r\n            this.circleBody.velocity = 0;\r\n            this.totalTime = 0;\r\n            return;\r\n        }\r\n        if (this.elapsedTime > 0 && this.isStart) {\r\n            this.totalTime += this.elapsedTime;\r\n            this.spTime.innerHTML = this.totalTime.toString() + \"s\";\r\n            this.spV.innerHTML = this.circleBody.velocity.toString() + \"m/s\";\r\n            this.circleBody.acceleration = 5 - 0.9 * this.circleBody.velocity;\r\n            this.world.step(this.elapsedTime);\r\n            console.log(this.circleBody.x);\r\n        }\r\n        ;\r\n    }\r\n    ;\r\n}\r\nexports.test = test;\r\nwindow.onload = () => {\r\n    var main = new test();\r\n    main.start();\r\n};\r\n\n\n//# sourceURL=webpack:///./examples/Electromagnetic/app.ts?");
+
+/***/ }),
+
+/***/ "./src/World.ts":
+/*!**********************!*\
+  !*** ./src/World.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nclass World {\r\n    constructor() {\r\n        this.bodies = new Array();\r\n    }\r\n    addBody(body) {\r\n        this.bodies.push(body);\r\n    }\r\n    step(dt) {\r\n        for (let i = 0; i < this.bodies.length; i++) {\r\n            this.bodies[i].Integrate(dt);\r\n        }\r\n    }\r\n}\r\nexports.World = World;\r\n\n\n//# sourceURL=webpack:///./src/World.ts?");
+
+/***/ }),
+
+/***/ "./src/objects/Body.ts":
+/*!*****************************!*\
+  !*** ./src/objects/Body.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nclass Body {\r\n    constructor() {\r\n        this.x = 0;\r\n        this.velocity = 0;\r\n        this.acceleration = 0;\r\n    }\r\n    Integrate(dt) {\r\n        this.velocity += this.acceleration * dt;\r\n        this.x += this.velocity * dt;\r\n    }\r\n}\r\nexports.Body = Body;\r\n\n\n//# sourceURL=webpack:///./src/objects/Body.ts?");
 
 /***/ })
 

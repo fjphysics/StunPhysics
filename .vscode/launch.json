@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceRoot}\\app.js",
+            "program": "${workspaceRoot}\\test\\draw2d\\main.js",
             "cwd": "${workspaceRoot}"
         },
         {

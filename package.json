@@ -1,26 +1,28 @@
 {
-  "name": "test",
-  "version": "1.0.0",
-  "description": "test",
-  "main": "test/index.html",
+  "name": "stunphysicc",
+  "version": "0.1.0",
+  "description": "物理引擎",
+  "main": "index.html",
   "scripts": {
-    "build-ts": "&& tsc test/app.ts"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch && webpack-dev-server",
+    "start_backup": "webpack --watch & live-server",
+    "dev": "webpack --mode development && webpack-dev-server --mode development",
+    "build": "webpack --mode production && webpack-dev-server --mode production"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browserify": "^14.5.0",
-    "gulp": "^3.9.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-typescript": "^3.2.4",
-    "gulp-uglify": "^2.1.2",
-    "gulp-util": "^3.0.8",
-    "retyped-dat-gui-tsd-ambient": "^0.5.0-0",
-    "tsify": "^3.0.4",
-    "typescript": "^2.9.2",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^1.1.2",
-    "watchify": "^3.11.1"
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "expose-loader": "0.7.5",
+    "ts-loader": "6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "4.35.2",
+    "webpack-cli": "3.3.5",
+    "webpack-dev-server": "3.7.2"
+  },
+  "dependencies": {
+    "eslint": "^6.1.0"
   }
 }

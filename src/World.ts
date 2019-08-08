@@ -1,14 +1,12 @@
 import { Body } from "./objects/Body";
-import { Vec2 } from "./math/Vec2"
 
 export class World {
 
-    gravity: Vec2;
+    gravity: number;
     bodies: Array<Body>;
 
     constructor() {
         this.bodies = new Array<Body>();
-        this.gravity = new Vec2(0, -50);
     }
 
     addBody(body: Body) {
@@ -16,8 +14,8 @@ export class World {
     }
 
     step(dt: number) {
-        for (let body of this.bodies) {    
-            body.Integrate(dt);
+        for (let i: number=0; i < this.bodies.length; i++){        
+            this.bodies[i].Integrate(dt);
         }
     }
 }
