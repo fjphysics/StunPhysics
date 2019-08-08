@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简谐振动</title>
+    <script src="../../dist/app.js"></script>
+</head>
+
+<body>
+    <canvas width="800" height="80" id="canvas" style="background-color:lightgray"></canvas>
+    <div>        
+        <button id="btnStart">开始</button>
+        <button id="btnReset">重置</button>
+        <div>
+            <label>劲度系数：</label>
+            <input type="range" id="ranK" value="2" min="1" max="4" step="0.2" /><span id="spK">2N/m</span>
+        </div>
+        <div>
+            <label>振子质量:</label>
+            <input type="range" id="ranM" value="2" min="1" max="4" step="0.2"/><span id="spM">2kg</span></div>
+            <div>周期：
+                <span id="spTime">0.00s</span></div>
+    </div>
+</body>
+
+</html>
