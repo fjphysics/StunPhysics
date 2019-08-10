@@ -7,7 +7,7 @@ export class test {
     circleBody: Body
     render: Render;
 
-    isPause: boolean = false;
+    isPause: boolean = true;
 
     canvas: HTMLCanvasElement;
     btnStart: HTMLButtonElement;
@@ -18,42 +18,32 @@ export class test {
     spM: HTMLSpanElement;
     spTime: HTMLSpanElement;
 
-    k: number;
-    m: number;
-    flag4T:boolean=false;
+    k: number = 2;
+    m: number = 2;
+    flag: boolean = false;
 
     public constructor() {
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
-        this.btnReset = <HTMLButtonElement>document.getElementById('btnReset');
         this.ranK = <HTMLInputElement>document.getElementById("ranK");
         this.ranM = <HTMLInputElement>document.getElementById("ranM");
         this.spK = <HTMLSpanElement>document.getElementById("spK");
         this.spM = <HTMLSpanElement>document.getElementById("spM");
         this.spTime = <HTMLSpanElement>document.getElementById("spTime");
 
-        this.k = Number(this.ranK.value);
-        this.m = Number(this.ranM.value);
-
         this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
         this.render = new Render(this.canvas.getContext("2d"));
 
-        this.isPause = true;
+        this.world = new World();
+        this.circleBody = new Body();
+        this.resetBody();
+        this.world.addBody(this.circleBody);
     }
 
     start() {
         this.btnStart.onclick = () => {
             this.isPause = !this.isPause;
-            this.ranK.disabled = this.ranM.disabled = true;
-            if (this.isPause) {
-                this.btnStart.innerHTML = "开始";
-            }
-            else {
-                this.btnStart.innerHTML = "暂停";
-            }
-        }
-        this.btnReset.onclick = () => {
-            this.resetBody();
+            this.ranK.disabled = this.ranM.disabled = this.btnStart.disabled = true;            
         }
 
         this.ranK.oninput = () => {
@@ -64,11 +54,12 @@ export class test {
             this.spM.innerHTML = this.ranM.value + "kg";
             this.m = Number(this.ranM.value);
         }
-        this.resetBody();
 
         this.world = new World();
         this.circleBody = new Body();
         this.world.addBody(this.circleBody);
+
+        this.resetBody();
 
         this.Update();
     };
@@ -82,7 +73,6 @@ export class test {
 
         const time: number = performance.now();
         this.elapsedTime = this.previousTime ? (time - this.previousTime) / 1000 : 0;
-        //this.elapsedTime = Math.min(1 / 10, this.elapsedTime);
         this.previousTime = time;
 
         if (this.elapsedTime > 0) {
@@ -90,13 +80,20 @@ export class test {
             if (this.isPause)
                 return;
 
+            if (this.circleBody.x < 400)
+                this.flag = true;
+
+            if (this.circleBody.x > 400&&this.flag){
+                this.resetBody();
+                return;
+            }
+
+            this.totalTime += this.elapsedTime;
             this.spTime.innerHTML = (this.totalTime).toFixed(2).toString() + "s";
 
             this.circleBody.acceleration = -(this.k / this.m) * (this.circleBody.x - 400);
 
             this.world.step(this.elapsedTime);
-
-            //console.log(this.circleBody.x);
         };
         this.render.draw(this.world);
     };
@@ -104,12 +101,11 @@ export class test {
     resetBody(): void {
         this.circleBody.x = 400;
         this.circleBody.velocity = 200;
-        this.ranK.disabled = this.ranM.disabled = false;
-        this.btnStart.innerHTML = "开始";
-        this.btnStart.disabled = false;
-        this.isPause = true;
+        this.ranK.disabled = this.ranM.disabled = this.btnStart.disabled = false;
         this.totalTime = 0;
         this.render.draw(this.world);
+        this.isPause = true;
+        this.flag=false;
     }
 }
 

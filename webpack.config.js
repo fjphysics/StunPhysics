@@ -1,7 +1,9 @@
 const path = require('path');
+//const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-  entry: './examples/Electromagnetic/app.ts',
+  //entry: './examples/HarmonicMotion/app.ts',  //入口文件，若不配置webpack4将自动查找src目录下的index.js文件
+  entry: './examples/Electromagnetic/app.ts',  
   module: {
     rules: [
       {
@@ -22,8 +24,8 @@ module.exports = {
     open: true
   },
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  mode: 'development'
+    filename: 'app.js',  // 输出文件名
+    //path: path.resolve(__dirname, './examples/HarmonicMotion') 
+    path: path.resolve(__dirname, './examples/Electromagnetic')  // 输出目录
+  }
 };

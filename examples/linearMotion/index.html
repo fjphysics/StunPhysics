@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>匀变速直线运动</title>
-    <script src="../../dist/app.js"></script>
+    <script src="../../dist/StunPhysics.js"></script>
+    <script src="app.js"></script>
 </head>
 
 <body>
@@ -14,11 +15,11 @@
         <button id="btnReset">重置</button>
         <div>
             <label>初速度：</label>
-            <input type="range" id="ranV" max="50" step="1" /><span id="spV">25m/s</span>
+            <input type="range" id="ranV" max="50" step="1" value="=25"/><span id="spV">25m/s</span>
         </div>
         <div>
             <label>加速度:</label>
-            <input type="range" id="ranA" max="50"  step="1"/><span id="spA">25m/s<sup>2</sup></span></div>
+            <input type="range" id="ranA" max="50"  step="1" value="25"/><span id="spA">25m/s<sup>2</sup></span></div>
         <div>用时
             <span id="spTime">0.00s</span></div>
     </div>

@@ -2,7 +2,6 @@ import { Body } from "./objects/Body";
 
 export class World {
 
-    gravity: number;
     bodies: Array<Body>;
 
     constructor() {

@@ -7,7 +7,7 @@ export class test {
     circleBody: Body
     render: Render;
 
-    isPause: boolean = false;
+    isPause: boolean = true;
 
     canvas: HTMLCanvasElement;
     btnStart: HTMLButtonElement;
@@ -17,9 +17,6 @@ export class test {
     ranA: HTMLInputElement;
     spA: HTMLSpanElement;
     spTime: HTMLSpanElement;
-
-    a: number;
-    v0: number;
 
     public constructor() {
 
@@ -31,13 +28,8 @@ export class test {
         this.spA = <HTMLSpanElement>document.getElementById("spA");
         this.spTime = <HTMLSpanElement>document.getElementById("spTime");
 
-        this.a = Number(this.ranA.value);
-        this.v0 = Number(this.ranV.value);
-
         this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
         this.render = new Render(this.canvas.getContext("2d"));
-
-        this.isPause = true;
     }
 
     start() {
@@ -49,37 +41,41 @@ export class test {
             else {
                 this.btnStart.innerHTML = "暂停";
             }
+            this.ranA.disabled = this.ranV.disabled = true;
         }
         this.btnReset.onclick = () => {
             this.resetBody();
         }
         this.ranV.oninput = () => {
             this.spV.innerHTML = this.ranV.value + "m/s";
+            this.circleBody.velocity = Number(this.ranV.value);
         }
         this.ranA.oninput = () => {
             this.spA.innerHTML = this.ranA.value + "m/s<sup>2</sup>";
+            this.circleBody.acceleration = Number(this.ranA.value);
         }
 
         this.world = new World();
         this.circleBody = new Body();
+        this.circleBody.x = 100;
+        this.circleBody.velocity = 25;
+        this.circleBody.acceleration = 25;
         this.resetBody();
         this.world.addBody(this.circleBody);
 
         this.Update();
     };
 
-    private time: number = 0;
     private previousTime: number;         // 上一帧的开始时刻
     private elapsedTime: number;          // 每帧流逝的时间（毫秒）
-    //private totalTime: number = 0;        // 用于计算变加速运动的时间
+    private totalTime: number = 0;        // 程序运行的总时间
 
     Update() {
 
         requestAnimationFrame(() => this.Update());
 
-        const time: number = Date.now();
+        const time: number = performance.now();
         this.elapsedTime = this.previousTime ? (time - this.previousTime) / 1000 : 0;
-        this.elapsedTime = Math.min(1 / 10, this.elapsedTime);
         this.previousTime = time;
 
         if (this.circleBody.x > 700) {
@@ -88,12 +84,11 @@ export class test {
         }
 
         if (this.elapsedTime > 0) {
-
             if (this.isPause)
                 return;
 
-            this.time += this.elapsedTime;
-            this.spTime.innerHTML = (this.time).toFixed(2).toString() + "s";
+            this.totalTime += this.elapsedTime;
+            this.spTime.innerHTML = (this.totalTime).toFixed(2).toString() + "s";
 
             this.world.step(this.elapsedTime);
         };
@@ -104,11 +99,12 @@ export class test {
         this.circleBody.x = 100;
         this.circleBody.velocity = Number(this.ranV.value);
         this.circleBody.acceleration = Number(this.ranA.value);
+        this.ranA.disabled = this.ranV.disabled = false;
         this.btnStart.innerHTML = "开始";
         this.btnStart.disabled = false;
         this.isPause = true;
         this.spTime.innerHTML = "0.00s";
-        this.time = 0;
+        this.totalTime = 0;
         this.render.draw(this.world);
     }
 }

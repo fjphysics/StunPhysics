@@ -1,4 +1,5 @@
-﻿import { World } from "../../src/World";
+﻿import { Render } from "../../src/render/Render";
+import { World } from "../../src/World";
 import { Body } from "../../src/objects/Body";
 
 export class test {
@@ -59,9 +60,7 @@ export class test {
             this.spV.innerHTML = this.circleBody.velocity.toString() + "m/s";
             
             this.circleBody.acceleration = 5 - 0.9 * this.circleBody.velocity;
-
             this.world.step(this.elapsedTime);
-            console.log(this.circleBody.x);
         };
     };
 }
