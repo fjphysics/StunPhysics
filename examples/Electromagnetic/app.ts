@@ -1,8 +1,4 @@
-﻿import { Render } from "../../src/render/Render";
-import { World } from "../../src/World";
-import { Body } from "../../src/objects/Body";
-
-export class test {
+﻿export class test {
     world: World;
     circleBody: Body;
     isStart: boolean = false;

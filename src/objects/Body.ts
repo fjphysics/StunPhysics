@@ -1,6 +1,4 @@
-﻿import { World } from "../World";
-
-export class Body {
+﻿export class Body {
     x: number = 0;
     velocity: number = 0;
     acceleration: number = 0;
@@ -9,4 +7,4 @@ export class Body {
         this.velocity += this.acceleration * dt;
         this.x += this.velocity * dt;
     }
-}   
+}

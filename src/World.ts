@@ -13,7 +13,7 @@ export class World {
     }
 
     step(dt: number) {
-        for (let i: number=0; i < this.bodies.length; i++){        
+        for (let i: number = 0; i < this.bodies.length; i++) {
             this.bodies[i].Integrate(dt);
         }
     }

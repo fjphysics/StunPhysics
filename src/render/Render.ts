@@ -1,5 +1,6 @@
-﻿import { World } from "../World";
-import { Body } from "../objects/Body";
+﻿import { Body } from "../objects/Body";
+import { World } from "../World";
+
 
 export class Render {
     ctx: CanvasRenderingContext2D;
@@ -12,9 +13,9 @@ export class Render {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.ctx.save();
 
-        for (let i: number=0; i < world.bodies.length; i++) {
+        for (let i: number = 0; i < world.bodies.length; i++) {
             const body: Body = world.bodies[i];
-            this.drawSolidCircle(body.x, 40, 20);            
+            this.drawSolidCircle(body.x, 40, 20);
         }
 
         this.ctx.restore();

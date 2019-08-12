@@ -5,18 +5,20 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch --mode production",
-    "start_backup": "webpack --watch & live-server",
+    "start": "gulp",
+    "engine": "webpack --mode development --config config/webpack.config.js",
+    "engine_min": "webpack --mode production --config config/webpack.enginemin.config.js",
+    "example": "webpack --mode development --config config/webpack.example.config.js",
     "dev": "webpack --mode development && webpack-dev-server --mode development",
     "build": "webpack --mode production && webpack-dev-server --mode production"
   },
-  "author": "",
+  "author": "fjphysics",
   "license": "ISC",
   "devDependencies": {
-    "ts-loader": "6.0.4",
+    "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
-    "webpack": "4.35.2",
-    "webpack-cli": "3.3.5",
-    "webpack-dev-server": "3.7.2"
-  }
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {}
 }

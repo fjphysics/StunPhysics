@@ -1,6 +1,11 @@
-﻿import { Render } from "../../src/render/Render";
-import { World } from "../../src/World";
-import { Body } from "../../src/objects/Body";
+﻿//import { World } from "../../src/World";
+//import { Render } from "../../src/render/Render";
+//import { Body } from "../../src/objects/Body";
+
+
+//import { Render, World,Body } from "../../src/StunPhysics";
+
+//import { World,Body,Render } from "../../types/StunPhysics";
 
 export class test {
     world: World;

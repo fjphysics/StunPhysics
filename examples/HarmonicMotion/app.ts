@@ -1,8 +1,4 @@
-﻿import { Render } from "../../src/render/Render";
-import { World } from "../../src/World";
-import { Body } from "../../src/objects/Body";
-
-export class test {
+﻿export class test {
     world: World;
     circleBody: Body
     render: Render;
@@ -54,12 +50,6 @@ export class test {
             this.spM.innerHTML = this.ranM.value + "kg";
             this.m = Number(this.ranM.value);
         }
-
-        this.world = new World();
-        this.circleBody = new Body();
-        this.world.addBody(this.circleBody);
-
-        this.resetBody();
 
         this.Update();
     };

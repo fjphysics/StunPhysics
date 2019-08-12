@@ -1,1 +1,101 @@
-!function(t){var e={};function i(n){if(e[n])return e[n].exports;var r=e[n]={i:n,l:!1,exports:{}};return t[n].call(r.exports,r,r.exports,i),r.l=!0,r.exports}i.m=t,i.c=e,i.d=function(t,e,n){i.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},i.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,"a",e),e},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},i.p="",i(i.s=0)}([function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=i(1),r=i(2),s=i(3),o=function(){function t(){this.isPause=!0,this.totalTime=0,this.btnStart=document.getElementById("btnStart"),this.btnReset=document.getElementById("btnReset"),this.ranV=document.getElementById("ranV"),this.ranA=document.getElementById("ranA"),this.spV=document.getElementById("spV"),this.spA=document.getElementById("spA"),this.spTime=document.getElementById("spTime"),this.canvas=document.getElementById("canvas"),this.render=new n.Render(this.canvas.getContext("2d"))}return t.prototype.start=function(){var t=this;this.btnStart.onclick=function(){t.isPause=!t.isPause,t.isPause?t.btnStart.innerHTML="开始":t.btnStart.innerHTML="暂停",t.ranA.disabled=t.ranV.disabled=!0},this.btnReset.onclick=function(){t.resetBody()},this.ranV.oninput=function(){t.spV.innerHTML=t.ranV.value+"m/s",t.circleBody.velocity=Number(t.ranV.value)},this.ranA.oninput=function(){t.spA.innerHTML=t.ranA.value+"m/s<sup>2</sup>",t.circleBody.acceleration=Number(t.ranA.value)},this.world=new r.World,this.circleBody=new s.Body,this.resetBody(),this.world.addBody(this.circleBody),this.Update()},t.prototype.Update=function(){var t=this;requestAnimationFrame(function(){return t.Update()});var e=performance.now();if(this.elapsedTime=this.previousTime?(e-this.previousTime)/1e3:0,this.previousTime=e,this.circleBody.x>700)this.btnStart.disabled=!0;else{if(this.elapsedTime>0){if(this.isPause)return;this.totalTime+=this.elapsedTime,this.spTime.innerHTML=this.totalTime.toFixed(2).toString()+"s",this.world.step(this.elapsedTime)}this.render.draw(this.world)}},t.prototype.resetBody=function(){this.circleBody.x=100,this.circleBody.velocity=Number(this.ranV.value),this.circleBody.acceleration=Number(this.ranA.value),this.ranA.disabled=this.ranV.disabled=!1,this.btnStart.innerHTML="开始",this.btnStart.disabled=!1,this.isPause=!0,this.spTime.innerHTML="0.00s",this.totalTime=0,this.render.draw(this.world)},t}();e.test=o,window.onload=function(){(new o).start()}},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(t){this.ctx=t}return t.prototype.draw=function(t){this.ctx.clearRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height),this.ctx.save();for(var e=0;e<t.bodies.length;e++){var i=t.bodies[e];this.drawSolidCircle(i.x,40,20)}this.ctx.restore()},t.prototype.drawSolidCircle=function(t,e,i){var n=this.ctx;if(n){var r=t,s=e;n.beginPath(),n.arc(r,s,i,0,2*Math.PI,!0),n.moveTo(r,s),n.lineTo(r+i,s),n.fillStyle="rgba(255,0,0,0.5)",n.fill(),n.strokeStyle="rgb(255,0,0)",n.stroke()}},t}();e.Render=n},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(){this.bodies=new Array}return t.prototype.addBody=function(t){this.bodies.push(t)},t.prototype.step=function(t){for(var e=0;e<this.bodies.length;e++)this.bodies[e].Integrate(t)},t}();e.World=n},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(){this.x=0,this.velocity=0,this.acceleration=0}return t.prototype.Integrate=function(t){this.velocity+=this.acceleration*t,this.x+=this.velocity*t},t}();e.Body=n}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./examples/linearMotion/app.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./examples/linearMotion/app.ts":
+/*!**************************************!*\
+  !*** ./examples/linearMotion/app.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\n//import { World } from \"../../src/World\";\r\n//import { Render } from \"../../src/render/Render\";\r\n//import { Body } from \"../../src/objects/Body\";\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n//import { Render, World,Body } from \"../../src/StunPhysics\";\r\n//import { World,Body,Render } from \"../../types/StunPhysics\";\r\nvar test = /** @class */ (function () {\r\n    function test() {\r\n        this.isPause = true;\r\n        this.totalTime = 0; // 程序运行的总时间\r\n        this.btnStart = document.getElementById('btnStart');\r\n        this.btnReset = document.getElementById('btnReset');\r\n        this.ranV = document.getElementById(\"ranV\");\r\n        this.ranA = document.getElementById(\"ranA\");\r\n        this.spV = document.getElementById(\"spV\");\r\n        this.spA = document.getElementById(\"spA\");\r\n        this.spTime = document.getElementById(\"spTime\");\r\n        this.canvas = document.getElementById('canvas');\r\n        this.render = new Render(this.canvas.getContext(\"2d\"));\r\n    }\r\n    test.prototype.start = function () {\r\n        var _this = this;\r\n        this.btnStart.onclick = function () {\r\n            _this.isPause = !_this.isPause;\r\n            if (_this.isPause) {\r\n                _this.btnStart.innerHTML = \"开始\";\r\n            }\r\n            else {\r\n                _this.btnStart.innerHTML = \"暂停\";\r\n            }\r\n            _this.ranA.disabled = _this.ranV.disabled = true;\r\n        };\r\n        this.btnReset.onclick = function () {\r\n            _this.resetBody();\r\n        };\r\n        this.ranV.oninput = function () {\r\n            _this.spV.innerHTML = _this.ranV.value + \"m/s\";\r\n            _this.circleBody.velocity = Number(_this.ranV.value);\r\n        };\r\n        this.ranA.oninput = function () {\r\n            _this.spA.innerHTML = _this.ranA.value + \"m/s<sup>2</sup>\";\r\n            _this.circleBody.acceleration = Number(_this.ranA.value);\r\n        };\r\n        this.world = new World();\r\n        this.circleBody = new Body();\r\n        this.circleBody.x = 100;\r\n        this.circleBody.velocity = 25;\r\n        this.circleBody.acceleration = 25;\r\n        this.resetBody();\r\n        this.world.addBody(this.circleBody);\r\n        this.Update();\r\n    };\r\n    ;\r\n    test.prototype.Update = function () {\r\n        var _this = this;\r\n        requestAnimationFrame(function () { return _this.Update(); });\r\n        var time = performance.now();\r\n        this.elapsedTime = this.previousTime ? (time - this.previousTime) / 1000 : 0;\r\n        this.previousTime = time;\r\n        if (this.circleBody.x > 700) {\r\n            this.btnStart.disabled = true;\r\n            return;\r\n        }\r\n        if (this.elapsedTime > 0) {\r\n            if (this.isPause)\r\n                return;\r\n            this.totalTime += this.elapsedTime;\r\n            this.spTime.innerHTML = (this.totalTime).toFixed(2).toString() + \"s\";\r\n            this.world.step(this.elapsedTime);\r\n        }\r\n        ;\r\n        this.render.draw(this.world);\r\n    };\r\n    ;\r\n    test.prototype.resetBody = function () {\r\n        this.circleBody.x = 100;\r\n        this.circleBody.velocity = Number(this.ranV.value);\r\n        this.circleBody.acceleration = Number(this.ranA.value);\r\n        this.ranA.disabled = this.ranV.disabled = false;\r\n        this.btnStart.innerHTML = \"开始\";\r\n        this.btnStart.disabled = false;\r\n        this.isPause = true;\r\n        this.spTime.innerHTML = \"0.00s\";\r\n        this.totalTime = 0;\r\n        this.render.draw(this.world);\r\n    };\r\n    return test;\r\n}());\r\nexports.test = test;\r\nwindow.onload = function () {\r\n    var main = new test();\r\n    main.start();\r\n};\r\n\n\n//# sourceURL=webpack:///./examples/linearMotion/app.ts?");
+
+/***/ })
+
+/******/ });
