@@ -1,75 +1,63 @@
-﻿//import { World } from "../../src/World";
-//import { Render } from "../../src/render/Render";
-//import { Body } from "../../src/objects/Body";
-
-
-//import { Render, World,Body } from "../../src/StunPhysics";
-
-//import { World,Body,Render } from "../../types/StunPhysics";
+﻿import { World } from "../../src/World";
+import { Render } from "../../src/render/Render";
+import { Body } from "../../src/objects/Body";
+import { Vec2 } from "../../src/math/Vec2";
 
 export class test {
     world: World;
     circleBody: Body
     render: Render;
+    canvas: HTMLCanvasElement;
 
     isPause: boolean = true;
 
-    canvas: HTMLCanvasElement;
     btnStart: HTMLButtonElement;
-    btnReset: HTMLButtonElement;
     ranV: HTMLInputElement;
     spV: HTMLSpanElement;
-    ranA: HTMLInputElement;
-    spA: HTMLSpanElement;
+    ranR: HTMLInputElement;
+    spR: HTMLSpanElement;
     spTime: HTMLSpanElement;
+
+    R: number = 200;
+    v: number = 200;
+    flag: boolean = false;
 
     public constructor() {
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
-        this.btnReset = <HTMLButtonElement>document.getElementById('btnReset');
         this.ranV = <HTMLInputElement>document.getElementById("ranV");
-        this.ranA = <HTMLInputElement>document.getElementById("ranA");
+        this.ranR = <HTMLInputElement>document.getElementById("ranR");
         this.spV = <HTMLSpanElement>document.getElementById("spV");
-        this.spA = <HTMLSpanElement>document.getElementById("spA");
+        this.spR = <HTMLSpanElement>document.getElementById("spR");
         this.spTime = <HTMLSpanElement>document.getElementById("spTime");
 
         this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
         this.render = new Render(this.canvas.getContext("2d"));
-    }
 
-    start() {
         this.btnStart.onclick = () => {
-            this.isPause = !this.isPause;
-            if (this.isPause) {
-                this.btnStart.innerHTML = "开始";
-            }
-            else {
-                this.btnStart.innerHTML = "暂停";
-            }
-            this.ranA.disabled = this.ranV.disabled = true;
-        }
-        this.btnReset.onclick = () => {
-            this.resetBody();
+            this.isPause = false;
+            this.btnStart.disabled = this.ranR.disabled = this.ranV.disabled = true;
         }
         this.ranV.oninput = () => {
             this.spV.innerHTML = this.ranV.value + "m/s";
-            this.circleBody.velocity = Number(this.ranV.value);
+            this.v = Number(this.ranV.value);
+            this.circleBody.velocity = new Vec2(this.v, 0);
+
         }
-        this.ranA.oninput = () => {
-            this.spA.innerHTML = this.ranA.value + "m/s<sup>2</sup>";
-            this.circleBody.acceleration = Number(this.ranA.value);
+        this.ranR.oninput = () => {
+            this.spR.innerHTML = this.ranR.value + "m";
+            this.R = Number(this.ranR.value);
         }
 
         this.world = new World();
-        this.circleBody = new Body();
-        this.circleBody.x = 100;
-        this.circleBody.velocity = 25;
-        this.circleBody.acceleration = 25;
-        this.resetBody();
+        this.world.gravity = Vec2.ZERO;
+        this.circleBody = new Body(this.world);
+        this.circleBody.position = new Vec2(400, 100);
+        this.circleBody.velocity = new Vec2(200, 0);
         this.world.addBody(this.circleBody);
 
         this.Update();
-    };
+    }
 
     private previousTime: number;         // 上一帧的开始时刻
     private elapsedTime: number;          // 每帧流逝的时间（毫秒）
@@ -83,8 +71,12 @@ export class test {
         this.elapsedTime = this.previousTime ? (time - this.previousTime) / 1000 : 0;
         this.previousTime = time;
 
-        if (this.circleBody.x > 700) {
-            this.btnStart.disabled = true;
+        if (this.circleBody.position.x < 400) {
+            this.flag = true;
+        }
+
+        if (this.circleBody.position.x > 400 && this.flag) {
+            this.reset();
             return;
         }
 
@@ -95,26 +87,27 @@ export class test {
             this.totalTime += this.elapsedTime;
             this.spTime.innerHTML = (this.totalTime).toFixed(2).toString() + "s";
 
+            var tempV:Vec2=new Vec2();
+            //Vec2.RotateV(this.circleBody.velocity,Math.PI / 2,tempV);            
+
+            this.circleBody.acceleration = Vec2.RotateV(this.circleBody.velocity,Math.PI / 2,tempV).SelfNormalize().SelfMul(this.v * this.v / this.R);
+
             this.world.step(this.elapsedTime);
         };
         this.render.draw(this.world);
     };
 
-    resetBody(): void {
-        this.circleBody.x = 100;
-        this.circleBody.velocity = Number(this.ranV.value);
-        this.circleBody.acceleration = Number(this.ranA.value);
-        this.ranA.disabled = this.ranV.disabled = false;
-        this.btnStart.innerHTML = "开始";
-        this.btnStart.disabled = false;
+    reset(): void {
+        this.circleBody.position = new Vec2(400, 100);
+        this.circleBody.velocity = new Vec2(Number(this.ranV.value), 0);
+        this.btnStart.disabled = this.ranR.disabled = this.ranV.disabled = false;
         this.isPause = true;
-        this.spTime.innerHTML = "0.00s";
         this.totalTime = 0;
         this.render.draw(this.world);
+        this.flag = false;
     }
 }
 
 window.onload = () => {
     var main: test = new test();
-    main.start();
 }

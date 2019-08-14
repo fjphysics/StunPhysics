@@ -15,7 +15,7 @@ export class Render {
 
         for (let i: number = 0; i < world.bodies.length; i++) {
             const body: Body = world.bodies[i];
-            this.drawSolidCircle(body.x, 40, 20);
+            this.drawSolidCircle(body.position.x, body.position.y, 20);
         }
 
         this.ctx.restore();

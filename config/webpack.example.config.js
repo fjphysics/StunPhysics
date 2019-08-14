@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {  
-  //entry: './examples/linearMotion/app.ts',
-  //entry: './examples/HarmonicMotion/app.ts',
-  entry: './examples/Electromagnetic/app.ts',
+  //entry: './examples/CircularMotion/app.ts',
+  //entry: './examples/ProjectileMotion/app.ts',
+  entry: './examples/Pendulum/app.ts',
   module: {
     rules: [
       {
@@ -18,8 +18,8 @@ module.exports = {
   },
   output: {
     filename: 'app.js',    
-    //path: path.resolve(__dirname, '../examples/linearMotion')
-    //path: path.resolve(__dirname, '../examples/HarmonicMotion')
-    path: path.resolve(__dirname, '../examples/Electromagnetic')
+    //path: path.resolve(__dirname, '../examples/CircularMotion')
+    //path: path.resolve(__dirname, '../examples/ProjectileMotion')
+    path: path.resolve(__dirname, '../examples/Pendulum')
   }
 };

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>抛体运动</title>
+    <!--script src="../../dist/StunPhysics.min.js"></script -->
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <canvas width="800" height="600" id="canvas" style="background-color:lightgray"></canvas>
+    <div>        
+        <button id="btnStart">开始</button>
+        <button id="btnReset">重置</button>
+        <div>
+            <label>初速度：</label>
+            <input type="range" id="ranV" min="50" max="250" step="10" value="200"/><span id="spV">200m/s</span>
+        </div>
+        <div>
+            <label>抛射角:</label>
+            <input type="range" id="ranA" min="-90" max="90"  step="5" value="0"/><span id="spA">0°</span></div>
+    </div>
+</body>
+
+</html>
