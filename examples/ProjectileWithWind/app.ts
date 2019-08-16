@@ -9,26 +9,17 @@ export class test {
     render: Render;
 
     isPause: boolean = true;
-
+    
     canvas: HTMLCanvasElement;
     btnStart: HTMLButtonElement;
     btnReset: HTMLButtonElement;
-    ranV: HTMLInputElement;
-    spV: HTMLSpanElement;
-    ranA: HTMLInputElement;
-    spA: HTMLSpanElement;
 
-    v: number = 200;
-    alpha: number = 0;
+    flag: number = 0;
 
     public constructor() {
 
         this.btnStart = <HTMLButtonElement>document.getElementById('btnStart');
         this.btnReset = <HTMLButtonElement>document.getElementById('btnReset');
-        this.ranV = <HTMLInputElement>document.getElementById("ranV");
-        this.ranA = <HTMLInputElement>document.getElementById("ranA");
-        this.spV = <HTMLSpanElement>document.getElementById("spV");
-        this.spA = <HTMLSpanElement>document.getElementById("spA");
 
         this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
         this.render = new Render(this.canvas.getContext("2d"));
@@ -41,29 +32,42 @@ export class test {
             else {
                 this.btnStart.innerHTML = "暂停";
             }
-            this.ranA.disabled = this.ranV.disabled = true;
         }
         this.btnReset.onclick = () => {
-            this.resetBody();
+            this.reset();
         }
 
-        this.ranV.oninput = () => {
-            this.v = Number(this.ranV.value);
-            this.spV.innerHTML = this.v.toString() + "m/s";
-            this.circleBody.velocity = new Vec2(this.v*Math.cos(this.alpha*Math.PI/180.0), -this.v*Math.sin(this.alpha*Math.PI/180.0));
-        }
-        this.ranA.oninput = () => {
-            this.alpha=Number(this.ranA.value);
-            this.spA.innerHTML = this.ranA.value + "°";
-            this.circleBody.velocity = new Vec2(this.v*Math.cos(this.alpha*Math.PI/180.0), -this.v*Math.sin(this.alpha*Math.PI/180.0));
+        window.onkeyup = (event) => {
+            // 监听键盘所触发的事件，同时传递参数event
+            switch (event.keyCode) {
+                case 48:
+                case 96:  // 0
+                    this.flag = 0;
+                    break;
+                case 37:  // 左键
+                    this.flag = 1;
+                    break;
+                case 38:  // 上键
+                    this.flag = 2;
+                    break;
+                case 39:  // 右键
+                    this.flag = 3;
+                    break;
+                case 40:  //下键
+                    this.flag = 4;
+                    break;
+                case 73:  //i 键
+                    this.circleBody.ApplyImpulse(new Vec2(0, -200))
+                    break;
+            }
         }
 
         this.world = new World();
-        this.world.gravity = new Vec2(0,100);
+        this.world.gravity = new Vec2(0, 100);
         this.circleBody = new Body(this.world);
         this.circleBody.position = new Vec2(100, 300);
-        this.circleBody.velocity = new Vec2(this.v, 0);
-        this.resetBody();
+        this.circleBody.velocity = new Vec2(200, 0);
+        this.circleBody.damping = 0;
         this.world.addBody(this.circleBody);
 
         this.Update();
@@ -84,8 +88,6 @@ export class test {
             if (this.isPause)
                 return;
 
-            this.world.step(this.elapsedTime);
-
             // 在边界处反弹
             if (this.circleBody.position.x < 20) {
                 this.circleBody.position.x = 20;
@@ -103,14 +105,33 @@ export class test {
                 this.circleBody.position.y = 580;
                 this.circleBody.velocity.y = -this.circleBody.velocity.y;
             }
+            
+            // 根据按键施加力或冲量
+            switch (this.flag) {
+                case 0:  // 数字0
+                    this.circleBody.ApplyForce(Vec2.ZERO);
+                    break;
+                case 1:
+                    this.circleBody.ApplyForce(new Vec2(-100, 0))
+                    break;
+                case 2:  // 上键
+                    this.circleBody.ApplyForce(new Vec2(0, -100))
+                    break;
+                case 3:  // 右键
+                    this.circleBody.ApplyForce(new Vec2(100, 0))
+                    break;
+                case 4:  //下键
+                    this.circleBody.ApplyForce(new Vec2(0, 100))
+                    break;
+            }
+            this.world.step(this.elapsedTime);
         };
         this.render.draw(this.world);
     };
 
-    resetBody(): void {
+    reset(): void {
         this.circleBody.position = new Vec2(100, 300);
-        this.circleBody.velocity = new Vec2(this.v * Math.cos(this.alpha * Math.PI / 180), -this.v * Math.sin(this.alpha * Math.PI / 180));
-        this.btnStart.disabled = this.ranA.disabled = this.ranV.disabled = false;
+        this.circleBody.velocity = new Vec2(200, 0);
         this.btnStart.innerHTML = "开始";
         this.isPause = true;
         this.render.draw(this.world);

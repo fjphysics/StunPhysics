@@ -4,11 +4,10 @@ import { Vec2 } from "./math/Vec2";
 export class World {
 
     bodies: Array<Body>;
-    gravity: Vec2;
+    gravity: Vec2=new Vec2(0,10);  // 默认重力加速度为10m/s^2，方向向下
 
     constructor() {
         this.bodies = new Array<Body>();
-        this.gravity = new Vec2(0, 10);
     }
 
     addBody(body: Body) {

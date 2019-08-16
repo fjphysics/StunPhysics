@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {  
   //entry: './examples/CircularMotion/app.ts',
-  //entry: './examples/ProjectileMotion/app.ts',
-  entry: './examples/Pendulum/app.ts',
+  entry: './examples/ProjectileWithWind/app.ts',
+  //entry: './examples/Pendulum/app.ts',
   module: {
     rules: [
       {
@@ -19,7 +19,7 @@ module.exports = {
   output: {
     filename: 'app.js',    
     //path: path.resolve(__dirname, '../examples/CircularMotion')
-    //path: path.resolve(__dirname, '../examples/ProjectileMotion')
-    path: path.resolve(__dirname, '../examples/Pendulum')
+    path: path.resolve(__dirname, '../examples/ProjectileWithWind')
+    //path: path.resolve(__dirname, '../examples/Pendulum')
   }
 };
